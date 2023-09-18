@@ -1,9 +1,10 @@
 import React, {useEffect, useState}from 'react'
-import { CommentsService } from '../../../api'
+import { CommentsService, InteractionService } from '../../../api'
 import NavBar from '../Components/NavBar'
 import Footer from '../Components/Footer'
 import { CommentsModel } from '../Models/Comments'
 import CommentSection from '../Components/CommentSection'
+
 
 
 const HomePage:React.FC = () => {
@@ -15,6 +16,11 @@ const HomePage:React.FC = () => {
   useEffect(()=>{
     getData()
   },[])
+
+  const handleClick = () =>{
+    InteractionService.moveServo().then(res=>console.log('servo moved'))
+  }
+  
   return (
   <>
   
@@ -23,7 +29,7 @@ const HomePage:React.FC = () => {
     <div className="flex-col md:flex-row h-[80vh] flex justify-between pl-6 pr-6" >
   
         <div className="h-full border border-purple w-full md:w-[55%] ">
-        <iframe src="https://player.twitch.tv/?channel=oliwisdelmar&parent=localhost" height="378" width="620"></iframe>
+        <img src="http://3.85.106.44:3001/stream" height="378" width="620"></img>
           <div className="sm:[60%] h-[60%] border border-red">
           video stream 
           
@@ -33,6 +39,7 @@ const HomePage:React.FC = () => {
             watch repetitions
           </div>
         </div>
+        <button onClick={handleClick}>FEED MY DOG</button>
 
         <div className="border border-red w-full md:w-[35%]">
           <CommentSection comments={data}/>
