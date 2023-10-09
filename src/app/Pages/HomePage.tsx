@@ -4,48 +4,59 @@ import NavBar from '../Components/NavBar'
 import Footer from '../Components/Footer'
 import { CommentsModel } from '../Models/Comments'
 import CommentSection from '../Components/CommentSection'
+import MessageInput from '../Containers/MessageInput'
 
 
 
 const HomePage:React.FC = () => {
   const [data, setData] = useState<CommentsModel[] | null>(null);
+  const [editingComment, setEditingComment] = useState<boolean>(false);
+  const [interactionCompleted, setInteractionCompleted] = useState<boolean>(false);
+  const url = process.env.NEXT_PUBLIC_BASE_URL
+  // const isMobile = isMobile()
 
   const getData = () =>{
-    CommentsService.getComments().then(response=>{return console.log(response),setData(response)})
+    CommentsService.getComments().then(response=>{return console.log(response), setData(response)})
   }
   useEffect(()=>{
     getData()
-  },[])
+  },[interactionCompleted])
 
   const handleClick = () =>{
-    InteractionService.moveServo().then(res=>console.log('servo moved'))
+    setEditingComment(true)
   }
-  
+
   return (
   <>
   
     <NavBar/>
     
-    <div className="flex-col md:flex-row h-[80vh] flex justify-between pl-6 pr-6" >
+    <div className="flex-col md:flex-row flex justify-between pl-6 pr-6 pt-8 h-[calc(100vh-60px)]" >
   
-        <div className="h-full border border-purple w-full md:w-[55%] ">
-        <img src="http://3.85.106.44:3001/stream" height="378" width="620"></img>
-          <div className="sm:[60%] h-[60%] border border-red">
+        <div className="h-fit md:h-full border-purple w-full md:w-[55%] ">
+          <div className="relative pb-[56.25%] overflow-hidden rounded-2xl">
+  
+          <img className="w-full h-full object-cover absolute top-0 left-0" src={`${url}/stream`}></img>
           video stream 
-          
           </div>
 
-          <div className="">
-            watch repetitions
+          <div className="hidden md:flex w-full justify-center my-8 md:mt-8 md:my-0">
+            <button className="hover:scale-110 font-semibold transition ease-in-out bg-purple px-12 py-4 bg-pink-600 rounded-full " onClick={handleClick}>FEED MY DOG</button>
           </div>
         </div>
-        <button onClick={handleClick}>FEED MY DOG</button>
 
-        <div className="border border-red w-full md:w-[35%]">
+        <div className="h-[30%] md:h-auto w-full md:w-[42%] pt-5 md:pt-0 over-flow-hidden grow md:grow-0">
           <CommentSection comments={data}/>
         </div>
+          <div className="md:hidden w-full flex justify-center my-6 md:mt-8 md:my-0 ">
+              <button className="hover:scale-110 transition ease-in-out bg-purple px-12 py-4 bg-pink-600 rounded-full w-4/5 font-bold" onClick={handleClick}>FEED MY DOG</button>
+          </div>
+
+        {editingComment && <MessageInput setEditingComment={setEditingComment} setInteractionCompleted={setInteractionCompleted}/>}
 
     </div>
+
+
 
     <Footer/>
   </>
