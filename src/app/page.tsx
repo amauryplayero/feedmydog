@@ -1,10 +1,10 @@
 "use client";
-import HomePage from "./Pages/HomePage";
+import HomePage from "./pages/HomePage";
 import Head from 'next/head';
 // import WebcamStream from './Components/WebcamStream';
 import { useEffect } from 'react';
 
-export default function Home() {
+export default function Page() {
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -21,8 +21,7 @@ export default function Home() {
        <Head>
         <title>Webcam Image Streaming</title>
       </Head>
-      {/* <WebcamStream /> */}
-    <HomePage/>
+      <HomePage/>
     </main>
   )
 }

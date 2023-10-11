@@ -26,7 +26,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({ comments }) => {
 }
   
   return (
-    <div  className="h-full md:h-3/4 flex flex-col justify-between bg-gray-light p-6 rounded-2xl overflow-scroll">
+    <div  className="h-full md:h-3/4 flex flex-col justify-between bg-gray-light p-6 rounded-2xl overflow-scroll border-4 border-gray">
         <div className="relative bottom-0 left-0">
           {comments && comments.map((comment, i)=>{
             const {name, content, date} = comment;
@@ -61,8 +61,6 @@ const CommentSection: React.FC<CommentSectionProps> = ({ comments }) => {
             if(i ===0){
               isNewComment = isCommentNew(present, formattedDate);
             }
-            console.log(isNewComment)
-
             return (
                   <Comment key={i} name={name} content={content} date={formattedDate} isNewComment={isNewComment}/>
               )

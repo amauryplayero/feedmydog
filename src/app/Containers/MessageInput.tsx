@@ -1,3 +1,4 @@
+'use client';
 import React, { useState } from 'react';
 import { CommentsModel } from '../Models/Comments';
 import { CommentsService, InteractionService } from '../../../api';
@@ -41,7 +42,7 @@ const MessageInput: React.FC<editingComment> = ({ setEditingComment, setInteract
     <div onClick={()=>setEditingComment(false)}className="absolute top-0 left-0 h-screen w-screen bg-black/75">
         <div onClick={e => e.stopPropagation()} className=' bg-white border border-gray rounded p-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-[20em] w-80'>
             <button className="absolute right-4" onClick={()=>setEditingComment(false)}>close</button>
-            <form className="h-full flex flex-col" onSubmit={(e)=>{handleSubmitComment(e)}}>
+            <form id="message-form" className="h-full flex flex-col" onSubmit={(e)=>{handleSubmitComment(e)}}>
               <div className="flex justify-center h-0">
                 <div className="absolute pointer-events-none">
 
@@ -54,14 +55,14 @@ const MessageInput: React.FC<editingComment> = ({ setEditingComment, setInteract
                 <span className="after:content-['*'] text-black after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
                   Name
                 </span>
-                <input type="name" name="name" className="w-full text-black mt-1 px-3 py-2 bg-white border shadow-sm border-pink-600 placeholder-gray focus:outline-none focus:border-blue focus:ring-blue block w-full rounded-md sm:text-sm focus:ring-1" placeholder="Your name" />
+                <input required type="name" name="name" className="w-full text-black mt-1 px-3 py-2 bg-white border shadow-sm border-pink-600 placeholder-gray focus:outline-none focus:border-blue focus:ring-blue block w-full rounded-md sm:text-sm focus:ring-1" placeholder="Your name" />
               </label>
 
               <label className="flex flex-col h-full pb-3 mt-4">
                 <span className="after:content-['*'] text-black after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
                   Message
                 </span>
-                <textarea name="message" className="mt-1 h-full px-3 py-2 bg-white border text-black shadow-sm border-pink-600 placeholder-gray focus:outline-none focus:border-blue focus:ring-blue block w-full rounded-md sm:text-sm focus:ring-1" placeholder="Leave a message for Patty!" />
+                <textarea required name="message" className="mt-1 h-full px-3 py-2 bg-white border text-black shadow-sm border-pink-600 placeholder-gray focus:outline-none focus:border-blue focus:ring-blue block w-full rounded-md sm:text-sm focus:ring-1" placeholder="Leave a message for Patty!" />
               </label>
   {/*             
               <textarea name="name" className="mb-4 text-black h-6 rounded" placeholder='name'></textarea>

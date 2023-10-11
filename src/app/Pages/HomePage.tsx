@@ -12,14 +12,20 @@ const HomePage:React.FC = () => {
   const [data, setData] = useState<CommentsModel[] | null>(null);
   const [editingComment, setEditingComment] = useState<boolean>(false);
   const [interactionCompleted, setInteractionCompleted] = useState<boolean>(false);
+  const [isFeedingTimeOk, setIsFeedingTimeOk] = useState<boolean>(false);
   const url = process.env.NEXT_PUBLIC_BASE_URL
   // const isMobile = isMobile()
 
   const getData = () =>{
     CommentsService.getComments().then(response=>{return console.log(response), setData(response)})
   }
+  const getTimeData = () =>{
+    InteractionService.isItFeedingTime().then(response=>{return console.log(response), setIsFeedingTimeOk(response)}).catch(err=>console.log(err))
+  }
+  console.log(isFeedingTimeOk)
   useEffect(()=>{
     getData()
+    getTimeData()
   },[interactionCompleted])
 
   const handleClick = () =>{
@@ -41,7 +47,7 @@ const HomePage:React.FC = () => {
           </div>
 
           <div className="hidden md:flex w-full justify-center my-8 md:mt-8 md:my-0">
-            <button className="hover:scale-110 font-semibold transition ease-in-out bg-purple px-12 py-4 bg-pink-600 rounded-full " onClick={handleClick}>FEED MY DOG</button>
+            {isFeedingTimeOk ? <button className="hover:scale-110 font-semibold transition ease-in-out bg-purple px-12 py-4 bg-pink-600 rounded-full " onClick={handleClick}>FEED MY DOG</button> : <button className="hover:scale-110 font-semibold transition ease-in-out bg-purple px-12 py-4 bg-pink-600 rounded-full " onClick={handleClick}>not feeding time yet</button>}
           </div>
         </div>
 
@@ -58,7 +64,7 @@ const HomePage:React.FC = () => {
 
 
 
-    <Footer/>
+    {/* <Footer/> */}
   </>
 
   )
