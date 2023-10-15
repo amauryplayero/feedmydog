@@ -1,5 +1,5 @@
 "use client";
-import Homepage from "./pages/Homepage";
+import Homepage from "./Homepage/page";
 import Head from 'next/head';
 // import WebcamStream from './Components/WebcamStream';
 import { useEffect } from 'react';
