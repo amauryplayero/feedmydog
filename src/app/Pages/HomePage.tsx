@@ -8,7 +8,7 @@ import MessageInput from '../Containers/MessageInput'
 
 
 
-const HomePage:React.FC = () => {
+const Homepage:React.FC = () => {
   const [data, setData] = useState<CommentsModel[] | null>(null);
   const [editingComment, setEditingComment] = useState<boolean>(false);
   const [interactionCompleted, setInteractionCompleted] = useState<boolean>(false);
@@ -70,4 +70,4 @@ const HomePage:React.FC = () => {
   )
 }
 
-export default HomePage
+export default Homepage
