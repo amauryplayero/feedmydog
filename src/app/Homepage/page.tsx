@@ -1,3 +1,4 @@
+'use client';
 import React, {useEffect, useState}from 'react'
 import { CommentsService, InteractionService } from '../../../api'
 import NavBar from '../Components/NavBar'
