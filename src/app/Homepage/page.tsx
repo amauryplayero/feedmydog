@@ -23,7 +23,6 @@ const Homepage:React.FC = () => {
   const getTimeData = () =>{
     InteractionService.isItFeedingTime().then(response=>{return console.log(response), setIsFeedingTimeOk(response)}).catch(err=>console.log(err))
   }
-  console.log(isFeedingTimeOk)
   useEffect(()=>{
     getData()
     getTimeData()

@@ -20,20 +20,20 @@ const MessageInput: React.FC<editingComment> = ({ setEditingComment, setInteract
     const name = e.target[0].value;
     const content = e.target[1].value;
     console.log(name, content)
-    CommentsService.postComment(name, content).then(()=>{
-      // show notification that it went through
+    // CommentsService.postComment(name, content).then(()=>{
+    //   // show notification that it went through
     
-      InteractionService.moveServo()
-      .then(() => {  
-        console.log('moving servo function')
-      })
-      .catch(error => console.error('Error fetching data:', error));
-    })
-    .catch(err=>console.log(err))
-    .finally(()=>{
-      setEditingComment(false)
-      setInteractionCompleted(true)
-    })
+    // InteractionService.moveServo()
+    //   .then(() => {  
+    //     console.log('moving servo function')
+    //   })
+    //   .catch(error => console.error('Error fetching data:', error));
+    // })
+    // .catch(err=>console.log(err))
+    // .finally(()=>{
+    //   setEditingComment(false)
+    //   setInteractionCompleted(true)
+    // })
     
   }
   
