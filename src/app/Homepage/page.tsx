@@ -37,7 +37,7 @@ const Homepage:React.FC = () => {
   
     <NavBar/>
     
-    <div className="flex-col md:flex-row flex justify-between pl-6 pr-6 pt-8 h-[calc(100vh-60px)]" >
+    <div className="flex-col md:flex-row flex justify-between pl-6 pr-6 pt-8 h-[calc(100vh-80px)]" >
   
         <div className="h-fit md:h-full border-purple w-full md:w-[55%] ">
           <div className="relative pb-[56.25%] overflow-hidden rounded-2xl">
@@ -54,7 +54,7 @@ const Homepage:React.FC = () => {
         <div className="h-[30%] md:h-auto w-full md:w-[42%] pt-5 md:pt-0 over-flow-hidden grow md:grow-0">
           <CommentSection comments={data}/>
         </div>
-          <div className="md:hidden w-full flex justify-center my-6 md:mt-8 md:my-0 ">
+          <div className="md:hidden w-full flex justify-center mt-6 mb-10 md:mt-8 md:my-0 ">
               <button className="hover:scale-110 transition ease-in-out bg-purple px-12 py-4 bg-pink-600 rounded-full w-4/5 font-bold" onClick={handleClick}>FEED MY DOG</button>
           </div>
 
