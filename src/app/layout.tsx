@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import NavBar from './Components/NavBar'
 import Script from 'next/script'
-const GTM_ID = 'GTM-5DMFF6DH';
+const GTM_ID = 'GTM-6GNJ0X6DMT';
 
 const inter = Inter({ subsets: ['latin'] })
 
