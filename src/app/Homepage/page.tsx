@@ -28,12 +28,13 @@ const Homepage:React.FC = () => {
     InteractionService.isItFeedingTime().then(response=>{return console.log(response), setIsFeedingTimeOk(response)}).catch(err=>console.log(err))
   }
   const getStreamData = () =>{
-    StreamService.checkStream(url).then(answer=>setIsStreamAvailable(answer)).catch(()=>{setIsStreamAvailable(false)})
+    StreamService.checkStream(url).then((answer)=>setIsStreamAvailable(answer)).catch(()=>{setIsStreamAvailable(false)})
   }
   useEffect(()=>{
     getData()
     getTimeData()
     getStreamData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[interactionCompleted])
 
   const handleClick = () =>{

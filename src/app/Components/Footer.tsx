@@ -8,8 +8,6 @@ type Props = {
 }
 
 const Footer:React.FC<Props> = ({editingComment}) => {
-console.log(editingComment)
-  
   
   return (
     <footer className="flex justify-center items-center bg-transparent text-black h-16">
