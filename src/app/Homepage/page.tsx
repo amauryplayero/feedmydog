@@ -6,6 +6,8 @@ import Footer from '../Components/Footer'
 import { CommentsModel } from '../Models/Comments'
 import CommentSection from '../Components/CommentSection'
 import MessageInput from '../Containers/MessageInput'
+import WebcamStream from '../Components/WebcamStream';
+import { StreamService } from '../../../api';
 
 
 
@@ -14,7 +16,9 @@ const Homepage:React.FC = () => {
   const [editingComment, setEditingComment] = useState<boolean>(false);
   const [interactionCompleted, setInteractionCompleted] = useState<boolean>(false);
   const [isFeedingTimeOk, setIsFeedingTimeOk] = useState<boolean>(false);
-  const url = process.env.NEXT_PUBLIC_BASE_URL
+  const [isStreamAvailable, setIsStreamAvailable] = useState(false);
+  const url:string = process.env.NEXT_PUBLIC_BASE_URL!
+
   // const isMobile = isMobile()
 
   const getData = () =>{
@@ -23,9 +27,13 @@ const Homepage:React.FC = () => {
   const getTimeData = () =>{
     InteractionService.isItFeedingTime().then(response=>{return console.log(response), setIsFeedingTimeOk(response)}).catch(err=>console.log(err))
   }
+  const getStreamData = () =>{
+    StreamService.checkStream(url).then(answer=>setIsStreamAvailable(answer)).catch(()=>{setIsStreamAvailable(false)})
+  }
   useEffect(()=>{
     getData()
     getTimeData()
+    getStreamData()
   },[interactionCompleted])
 
   const handleClick = () =>{
@@ -42,12 +50,12 @@ const Homepage:React.FC = () => {
         <div className="h-fit md:h-full border-purple w-full md:w-[55%] ">
           <div className="relative pb-[56.25%] overflow-hidden rounded-2xl">
   
-          <img className="w-full h-full object-cover absolute top-0 left-0" src={`${url}/stream`}></img>
+          <WebcamStream isStreamAvailable={isStreamAvailable} url={url}/>
           video stream 
           </div>
 
           <div className="hidden md:flex w-full justify-center my-8 md:mt-8 md:my-0">
-            {isFeedingTimeOk ? <button className="hover:scale-110 font-semibold transition ease-in-out bg-purple px-12 py-4 bg-pink-600 rounded-full " onClick={handleClick}>FEED MY DOG</button> : <button className="hover:scale-110 font-semibold transition ease-in-out bg-purple px-12 py-4 bg-pink-600 rounded-full " onClick={handleClick}>not feeding time yet</button>}
+            {isFeedingTimeOk ? <button className="hover:scale-110 font-semibold transition ease-in-out bg-purple px-12 py-4 bg-pink-600 rounded-full " onClick={handleClick}>FEED MY DOG</button> : <button className="font-semibold transition ease-in-out bg-purple px-12 py-4 bg-pink-300 rounded-full " >not feeding time yet</button>}
           </div>
         </div>
 

@@ -1,21 +1,13 @@
-// import { useEffect, useState } from 'react';
-// import io from 'socket.io-client';
 
-// const WebcamStream = () => {
-//   const [webcamSrc, setWebcamSrc] = useState('');
+type streamProps = {
+    isStreamAvailable:boolean
+    url:string
+}
 
-//   useEffect(() => {
-//     const socket = io('http://localhost:3001');
-//     socket.on('image', (imageData:string) => {
-//       console.log('image data', imageData);
-//       setWebcamSrc(imageData);
-//     });
-//     return () => {
-//       socket.disconnect();
-//     };
-//   }, []);
+const WebcamStream: React.FC<streamProps> = ({isStreamAvailable, url}) => {
 
-//   return <img alt="stream" id="webcam" src={webcamSrc} />;
-// };
-
-// export default WebcamStream;
+  return <>
+    {isStreamAvailable ? <img className="w-full h-full object-cover absolute top-0 left-0" alt="stream" src={`${url}/stream`}></img> : <div className="text-black w-full h-full object-cover absolute top-0 left-0 border-4 border-gray rounded-2xl p-4 text-center flex justify-center items-center"><p>Stream is under construction or down!<br></br> Please come back later</p></div>}
+  </>;
+};
+export default WebcamStream;
