@@ -8,6 +8,8 @@ import CommentSection from '../Components/CommentSection'
 import MessageInput from '../Containers/MessageInput'
 import WebcamStream from '../Components/WebcamStream';
 import { StreamService } from '../../../api';
+import FeedButton from '../Components/FeedButton'
+import isFeedingOkay from '../Helpers/isFeedingOkay';
 
 
 
@@ -15,25 +17,32 @@ const Homepage:React.FC = () => {
   const [data, setData] = useState<CommentsModel[] | null>(null);
   const [editingComment, setEditingComment] = useState<boolean>(false);
   const [interactionCompleted, setInteractionCompleted] = useState<boolean>(false);
-  const [isFeedingTimeOk, setIsFeedingTimeOk] = useState<boolean>(false);
-  const [isStreamAvailable, setIsStreamAvailable] = useState(false);
+  const [isStreamAvailable, setIsStreamAvailable] = useState<boolean>(false);
+  const [feedingIsOkay, setFeedingIsOkay] = useState<boolean>(false)
   const url:string = process.env.NEXT_PUBLIC_BASE_URL!
 
-  // const isMobile = isMobile()
-
   const getData = () =>{
-    CommentsService.getComments().then(response=>{return console.log(response), setData(response)})
+    CommentsService.getComments().then(response=>{setData(response)})
   }
-  const getTimeData = () =>{
-    InteractionService.isItFeedingTime().then(response=>{return console.log(response), setIsFeedingTimeOk(response)}).catch(err=>console.log(err))
-  }
+
   const getStreamData = () =>{
     StreamService.checkStream(url).then((answer)=>setIsStreamAvailable(answer)).catch(()=>{setIsStreamAvailable(false)})
   }
+
+  const getFeedingData = ()=>{
+    const time = new Date().toLocaleString('en-US', {timeZone: 'America/New_York'})
+  
+    InteractionService.lastTimePattyAte().then((res: string)=>{
+      const lastMealDate = res
+      const feedingRes = isFeedingOkay(time, lastMealDate)
+      setFeedingIsOkay(feedingRes)})
+      .catch(err=>console.log(err))
+  }
+
   useEffect(()=>{
     getData()
-    getTimeData()
     getStreamData()
+    getFeedingData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[interactionCompleted])
 
@@ -56,7 +65,7 @@ const Homepage:React.FC = () => {
           </div>
 
           <div className="hidden md:flex w-full justify-center my-8 md:mt-8 md:my-0">
-            {isFeedingTimeOk ? <button className="hover:scale-110 font-semibold transition ease-in-out bg-purple px-12 py-4 bg-pink-600 rounded-full " onClick={handleClick}>FEED MY DOG</button> : <button className="font-semibold transition ease-in-out bg-purple px-12 py-4 bg-pink-300 rounded-full " >not feeding time yet</button>}
+            <FeedButton handleFeedClick={handleClick} feedingIsOkay={feedingIsOkay}/>
           </div>
         </div>
 
@@ -64,7 +73,7 @@ const Homepage:React.FC = () => {
           <CommentSection comments={data}/>
         </div>
           <div className="md:hidden w-full flex justify-center mt-6 mb-10 md:mt-8 md:my-0 ">
-              <button className="hover:scale-110 transition ease-in-out bg-purple px-12 py-4 bg-pink-600 rounded-full w-4/5 font-bold" onClick={handleClick}>FEED MY DOG</button>
+            <FeedButton handleFeedClick={handleClick} feedingIsOkay={feedingIsOkay}/>
           </div>
 
         {editingComment && <MessageInput setEditingComment={setEditingComment} setInteractionCompleted={setInteractionCompleted}/>}
