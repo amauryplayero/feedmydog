@@ -26,7 +26,7 @@ const Homepage:React.FC = () => {
   }
 
   const getStreamData = () =>{
-    fetch('http://localhost:3001/stream').then(res=>{if(res.status=== 404 || res.status=== 400){throw new Error} else{setIsStreamAvailable(true)}}).catch(()=>{setIsStreamAvailable(false)})
+    fetch(url+'/stream').then(res=>{if(res.status=== 404 || res.status=== 400){throw new Error} else{setIsStreamAvailable(true)}}).catch(()=>{setIsStreamAvailable(false)})
     // StreamService.checkStream(url).then((answer)=>setIsStreamAvailable(answer)).catch(()=>{setIsStreamAvailable(false)})
   }
 
