@@ -59,11 +59,10 @@ const Homepage:React.FC = () => {
     <div className="flex-col md:flex-row flex justify-between pl-6 pr-6 pt-8 h-[calc(100vh-80px)]" >
   
         <div className="h-fit md:h-full border-purple w-full md:w-[55%] ">
-          <div className="relative pb-[56.25%] overflow-hidden rounded-2xl">
+          
   
           <WebcamStream isStreamAvailable={isStreamAvailable} url={url}/>
           video stream 
-          </div>
 
           <div className="hidden md:flex w-full justify-center my-8 md:mt-8 md:my-0">
             <FeedButton handleFeedClick={handleClick} feedingIsOkay={feedingIsOkay}/>
