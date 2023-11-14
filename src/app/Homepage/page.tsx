@@ -35,7 +35,9 @@ const Homepage:React.FC = () => {
   
     InteractionService.lastTimePattyAte().then((res: string)=>{
       const lastMealDate = res
-      const feedingRes = isFeedingOkay(time, lastMealDate)
+      // const feedingRes = isFeedingOkay(time, lastMealDate)
+      // testing for now
+      const feedingRes = true
       setFeedingIsOkay(feedingRes)})
       .catch(err=>console.log(err))
   }
